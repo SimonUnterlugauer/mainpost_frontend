@@ -1,26 +1,21 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <MainHeader />
+  <router-view /> <!-- Hier werden die gerouteten Komponenten angezeigt -->
+
+  <Footer />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import Footer from "./components/layout/Footer/Footer.vue";
+import MainHeader from "./components/layout/Header/MainHeader.vue";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    Footer, // Füge die Footer-Komponente als lokale Komponente hinzu
+    MainHeader,
+  },
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
