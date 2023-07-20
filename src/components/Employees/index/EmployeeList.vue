@@ -27,15 +27,30 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
-      employees: [
-        { id: 1, name: "Max Mustermann", abteilung: "Vertrieb" },
-        { id: 2, name: "Lisa Müller", abteilung: "Marketing" },
-        { id: 3, name: "Peter Schmidt", abteilung: "Produktion" },
-      ],
+      employees: [],
     };
+  },
+  mounted() {
+    this.fetchEmployees();
+  },
+  methods: {
+    fetchEmployees() {
+      axios
+        .get("http://localhost:8000/employees")
+        .then((response) => {
+          this.employees = response.data.employees;
+          this.loading = false; // Daten wurden geladen
+          console.log(this.employees);
+        })
+        .catch((error) => {
+          console.error("Fehler beim Abrufen der Mitarbeiterdaten:", error);
+        });
+    },
   },
 };
 </script>
