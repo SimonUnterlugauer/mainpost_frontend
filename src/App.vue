@@ -1,6 +1,12 @@
 <template>
 
-  <div>
+  <div v-if="!authState.user">
+    <!-- Zeige die Login-Komponente an -->
+    <LoginComponent/>
+
+  </div>
+
+  <div v-else>
     <!-- Start Navigation -->
     <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
       <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6">
@@ -34,13 +40,23 @@
 import Footer from "./components/layout/Footer/Footer.vue";
 import MainNavigation from "./components/layout/Navigation/MainNavigation.vue";
 import MainHeader from "./components/layout/Header/MainHeader.vue";
+import LoginComponent from "./components/Authentification/Login/LoginComponent.vue";
+import authState from '@/services/Authentification/authState';
+
 
 export default {
+  
   name: 'App',
   components: {
     Footer, 
     MainNavigation,
     MainHeader,
+    LoginComponent
+  },
+  computed: {
+    authState() {
+      return authState;
+    },
   },
 }
 </script>

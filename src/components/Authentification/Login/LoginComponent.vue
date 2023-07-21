@@ -71,6 +71,7 @@
 
 <script>
 import supabase from '@/services/supabase';  // Passe den Pfad entsprechend an
+
 console.log(supabase);
 
 export default {
@@ -84,8 +85,8 @@ export default {
         async loginWithSupabase() {
             try {
                 const { user, error } = await supabase.auth.signInWithPassword({
-                email: this.email,
-                password: this.password,
+                    email: this.email,
+                    password: this.password,
                 });
 
                 if (error) {
