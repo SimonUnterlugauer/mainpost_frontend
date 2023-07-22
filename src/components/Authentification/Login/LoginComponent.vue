@@ -84,7 +84,7 @@ export default {
     methods: {
         async loginWithSupabase() {
             try {
-                const { user, error } = await supabase.auth.signInWithPassword({
+                const { data, error } = await supabase.auth.signInWithPassword({
                     email: this.email,
                     password: this.password,
                 });
@@ -92,7 +92,8 @@ export default {
                 if (error) {
                 console.error('Fehler beim Anmelden:', error.message);
                 } else {
-                console.log('Anmeldung erfolgreich:', user);
+                  console.log('Anmeldung erfolgreich:', data);
+                  window.location.href = '/dashboard';
                 }
             } catch (error) {
                 console.error('Unbekannter Fehler:', error);

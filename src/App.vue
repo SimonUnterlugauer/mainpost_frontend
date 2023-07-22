@@ -1,9 +1,8 @@
 <template>
 
-  <div v-if="!authState.user">
+  <div v-if="!isAuthenticated">
     <!-- Zeige die Login-Komponente an -->
     <LoginComponent/>
-
   </div>
 
   <div v-else>
@@ -41,11 +40,16 @@ import Footer from "./components/layout/Footer/Footer.vue";
 import MainNavigation from "./components/layout/Navigation/MainNavigation.vue";
 import MainHeader from "./components/layout/Header/MainHeader.vue";
 import LoginComponent from "./components/Authentification/Login/LoginComponent.vue";
-import authState from '@/services/Authentification/authState';
+import supabase from '@/services/supabase';  // Passe den Pfad entsprechend an
 
 
 export default {
-  
+
+  data() {
+    return {
+      isAuthenticated: false,
+    };
+  },
   name: 'App',
   components: {
     Footer, 
@@ -53,10 +57,25 @@ export default {
     MainHeader,
     LoginComponent
   },
-  computed: {
-    authState() {
-      return authState;
+  mounted() {
+    // Funktion, die bei einem Seiten-Reload oder Initialisierung aufgerufen wird
+    this.checkAuthState();
+  },
+  methods: {
+    checkAuthState() {
+      // Hier kommt dein Code zum Überprüfen des Authentifizierungszustands
+      
+      supabase.auth.onAuthStateChange((event, session) => {
+        if (event == 'SIGNED_IN') {
+          console.log('SIGNED_IN', session)
+          this.isAuthenticated = true;
+        } else if (event == 'SIGNED_OUT') {
+          console.log('SIGNED_OUT', session);
+          this.isAuthenticated = false;
+        } 
+      })
     },
+    // Weitere Vue-Methoden hier
   },
 }
 </script>
