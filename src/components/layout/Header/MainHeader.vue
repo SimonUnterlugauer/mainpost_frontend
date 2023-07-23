@@ -59,7 +59,7 @@
                 >
                     <!-- Active: "bg-gray-50", Not Active: "" -->
                     <a href="#" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-0">Your profile</a>
-                    <a href="#" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign out</a>
+                    <a @click="logOutWithSupabase" class="block cursor-pointer px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign out</a>
                 </div>
             </div>
         </div>
@@ -67,7 +67,11 @@
     </div>
 </template>
 <script>
-export default {
+import supabase from '@/services/supabase';  // Passe den Pfad entsprechend an
+console.log(supabase);
+
+
+export default {  
   name: "MainHeader", // Ändere den Namen der Komponente
   data() {
     return {
@@ -77,6 +81,20 @@ export default {
   methods: {
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen;
+    },
+    async logOutWithSupabase() {
+        try {
+            const { error } = await supabase.auth.signOut();
+
+            if (error) {
+            console.error('Fehler beim Anmelden:', error.message);
+            } else {
+                console.log('Abmeldung erfolgreich:');
+                window.location.href = '/login';
+            }
+        } catch (error) {
+            console.error('Unbekannter Fehler:', error);
+        }
     },
   },
 };

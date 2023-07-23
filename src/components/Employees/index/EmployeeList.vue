@@ -3,7 +3,7 @@
     <div class="mx-20">
         <h2 class="text-2xl font-bold">Mitarbeiterliste</h2>
         <table class="mt-4 w-full">
-            <thead>
+            <thead class="text-left">
                 <tr class="bg-gray-200">
                 <th class="px-4 py-2">ID</th>
                 <th class="px-4 py-2">Name</th>
