@@ -87,10 +87,10 @@
 </template>
 
 <script>
-import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { fetchEmployees } from '@/services/Employees/employeeService';
 library.add(faChevronLeft, faChevronRight);
 
 
@@ -106,7 +106,7 @@ export default {
     };
   },
   mounted() {
-    this.fetchEmployees();
+    this.loadData();
   },
   computed: {
     totalPages() {
@@ -150,17 +150,14 @@ export default {
     },
   },
   methods: {
-    fetchEmployees() {
-        axios
-            .get("http://localhost:8000/employees")
-            .then((response) => {
-            this.allEmployees = response.data.employees; // Speichere alle Mitarbeiterdaten
-            this.loading = false; // Daten wurden geladen
-            this.updatePaginatedEmployees(); // Rufe die Methode auf, um die paginierten Mitarbeiter zu aktualisieren
-            })
-            .catch((error) => {
-            console.error("Fehler beim Abrufen der Mitarbeiterdaten:", error);
-            });
+    async loadData() {
+      try {
+        this.allEmployees = await fetchEmployees();
+        this.loading = false;
+        this.updatePaginatedEmployees();
+      } catch (error) {
+        console.error('Fehler beim Laden der Daten:', error);
+      }
     },
     updatePaginatedEmployees() {
         const startIndex = (this.currentPage - 1) * this.itemsPerPage;
