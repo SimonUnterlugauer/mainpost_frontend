@@ -25,65 +25,67 @@
                   </tr>
               </tbody>
           </table>
-        </div>
-        <!-- Pagination -->
-            <div class="mt-4 flex justify-end">
-                <button
-                    @click="changePage(currentPage - 1)"
-                    :disabled="currentPage === 1"
-                    class="px-3 py-2 text-blue-500 font-bold mx-1 rounded"
-                    >
-                        <font-awesome-icon icon="chevron-left" />
-                </button>
-                <!-- Erster Button -->
-                <button
-                    v-if="showFirstPageButton"
-                    @click="changePage(1)"
-                    :class="{ 'bg-blue-500': currentPage === 1, 'bg-gray-300': currentPage !== 1 }"
-                    class="px-3 py-2 text-white font-bold mx-1 rounded"
-                >
-                    1
-                </button>
+          <!-- Pagination -->
+          <div class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+            <div class="flex flex-1 justify-between gap-x-3 sm:justify-end">
+              <button
+                  @click="changePage(currentPage - 1)"
+                  :disabled="currentPage === 1"
+                  class="px-3 py-2 text-blue-500 font-bold mx-1 rounded"
+                  >
+                      <font-awesome-icon icon="chevron-left" />
+              </button>
+              <!-- Erster Button -->
+              <button
+                  v-if="showFirstPageButton"
+                  @click="changePage(1)"
+                  :class="{ 'bg-blue-500': currentPage === 1, 'bg-gray-300': currentPage !== 1 }"
+                  class="px-3 py-2 text-white font-bold mx-1 rounded"
+              >
+                  1
+              </button>
 
-                <!-- ... -->
-                <!-- Weitere Seiten werden durch ... ersetzt -->
-                <span v-if="showEllipsisBefore">...</span>
+              <!-- ... -->
+              <!-- Weitere Seiten werden durch ... ersetzt -->
+              <span v-if="showEllipsisBefore">...</span>
 
-                <!-- Anzeigen der Seitennummern in der Mitte -->
-                <button
-                    v-for="pageNumber in displayedPages"
-                    :key="pageNumber"
-                    @click="changePage(pageNumber)"
-                    :class="{ 'bg-blue-500': currentPage === pageNumber, 'bg-gray-300': currentPage !== pageNumber }"
-                    class="px-3 py-2 text-white font-bold mx-1 rounded"
-                >
-                    {{ pageNumber }}
-                </button>
+              <!-- Anzeigen der Seitennummern in der Mitte -->
+              <button
+                  v-for="pageNumber in displayedPages"
+                  :key="pageNumber"
+                  @click="changePage(pageNumber)"
+                  :class="{ 'bg-blue-500': currentPage === pageNumber, 'bg-gray-300': currentPage !== pageNumber }"
+                  class="px-3 py-2 text-white font-bold mx-1 rounded"
+              >
+                  {{ pageNumber }}
+              </button>
 
-                <!-- ... -->
-                <!-- Weitere Seiten werden durch ... ersetzt -->
-                <span v-if="showEllipsisAfter">...</span>
+              <!-- ... -->
+              <!-- Weitere Seiten werden durch ... ersetzt -->
+              <span v-if="showEllipsisAfter">...</span>
 
-                <!-- Letzter Button -->
-                <button
-                    v-if="showLastPageButton"
-                    @click="changePage(totalPages)"
-                    :class="{
-                    'bg-blue-500': currentPage === totalPages,
-                    'bg-gray-300': currentPage !== totalPages,
-                    }"
-                    class="px-3 py-2 text-white font-bold mx-1 rounded"
-                >
-                    {{ totalPages }}
-                </button>
-                <button
-                    @click="changePage(currentPage + 1)"
-                    :disabled="currentPage === totalPages"
-                    class="px-3 py-2 text-blue-500 font-bold mx-1 rounded"
-                    >
-                        <font-awesome-icon icon="chevron-right" />
-                </button>
-            </div>
+              <!-- Letzter Button -->
+              <button
+                  v-if="showLastPageButton"
+                  @click="changePage(totalPages)"
+                  :class="{
+                  'bg-blue-500': currentPage === totalPages,
+                  'bg-gray-300': currentPage !== totalPages,
+                  }"
+                  class="px-3 py-2 text-white font-bold mx-1 rounded"
+              >
+                  {{ totalPages }}
+              </button>
+              <button
+                  @click="changePage(currentPage + 1)"
+                  :disabled="currentPage === totalPages"
+                  class="px-3 py-2 text-blue-500 font-bold mx-1 rounded"
+                  >
+                      <font-awesome-icon icon="chevron-right" />
+              </button>
+            </div> 
+          </div>
+        </div>  
     </div>
   </div>
 </template>
