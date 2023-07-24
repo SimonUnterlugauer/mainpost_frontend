@@ -1,5 +1,4 @@
 <template>
-
   <div v-if="!isAuthenticated">
     <!-- Zeige die Login-Komponente an -->
     <LoginComponent/>
@@ -48,6 +47,7 @@ export default {
   data() {
     return {
       isAuthenticated: false,
+      finished: false,
     };
   },
   name: 'App',
@@ -63,17 +63,18 @@ export default {
   },
   methods: {
     checkAuthState() {
+      this.finished = false;
       // Hier kommt dein Code zum Überprüfen des Authentifizierungszustands
-      
       supabase.auth.onAuthStateChange((event, session) => {
-        if (event == 'SIGNED_IN') {
-          console.log('SIGNED_IN', session)
-          this.isAuthenticated = true;
-        } else if (event == 'SIGNED_OUT') {
-          console.log('SIGNED_OUT', session);
-          this.isAuthenticated = false;
-        } 
+          if (event == 'SIGNED_IN') {
+            console.log('SIGNED_IN', session)
+            this.isAuthenticated = true;
+          } else if (event == 'SIGNED_OUT') {
+            console.log('SIGNED_OUT', session);
+            this.isAuthenticated = false;
+          } 
       })
+      this.finished = true
     },
     // Weitere Vue-Methoden hier
   },
