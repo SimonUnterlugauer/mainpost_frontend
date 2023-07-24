@@ -2,28 +2,30 @@
   <div>
     <div class="mx-20">
         <h2 class="text-2xl font-bold">Mitarbeiterliste</h2>
-        <table class="mt-4 w-full">
-            <thead class="text-left">
-                <tr class="bg-gray-200">
-                <th class="px-4 py-2">ID</th>
-                <th class="px-4 py-2">Name</th>
-                <th class="px-4 py-2">Abteilung</th>
-                <th class="px-4 py-2"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="employee in paginatedEmployees" :key="employee.id" class="border-b">
-                    <td class="px-4 py-2">{{ employee.id }}</td>
-                    <td class="px-4 py-2">{{ employee.name }}</td>
-                    <td class="px-4 py-2">{{ employee.abteilung }}</td>
-                    <td class="px-4 py-2">
-                        <a :href="'/employee/' + employee.id" class="bg-blue-500 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            Ansehen
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="min-w-full overflow-hidden overflow-x-auto align-middle shadow sm:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200">
+              <thead class="text-right">
+                  <tr>
+                    <th class="bg-gray-50 px-6 py-3 text-left text-sm font-semibold text-gray-900">ID</th>
+                    <th class="bg-gray-50 px-6 py-3 text-right text-sm font-semibold text-gray-900">Name</th>
+                    <th class="bg-gray-50 px-6 py-3 text-right text-sm font-semibold text-gray-900">Abteilung</th>
+                    <th class="bg-gray-50 px-6 py-3 text-right text-sm font-semibold text-gray-900"></th>
+                  </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 bg-white">
+                  <tr v-for="employee in paginatedEmployees" :key="employee.id" class="bg-white">
+                      <td class="whitespace-nowrap px-6 py-4 text-left text-sm text-gray-500">{{ employee.id }}</td>
+                      <td class="whitespace-nowrap px-6 py-4 text-right text-sm text-gray-500">{{ employee.name }}</td>
+                      <td class="whitespace-nowrap px-6 py-4 text-right text-sm text-gray-500">{{ employee.abteilung }}</td>
+                      <td class="whitespace-nowrap px-6 py-4 text-right text-sm text-gray-500">
+                          <a :href="'/employee/' + employee.id" class="bg-blue-500 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                              Ansehen
+                          </a>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+        </div>
         <!-- Pagination -->
             <div class="mt-4 flex justify-end">
                 <button

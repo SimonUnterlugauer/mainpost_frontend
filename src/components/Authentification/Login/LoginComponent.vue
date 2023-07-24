@@ -72,7 +72,6 @@
 <script>
 import supabase from '@/services/supabase';  // Passe den Pfad entsprechend an
 
-console.log(supabase);
 
 export default {
     data() {
