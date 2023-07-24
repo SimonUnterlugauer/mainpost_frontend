@@ -17,6 +17,6 @@ watchEffect(() => {
     authListener.unsubscribe();
   };
 });
-console.log(authState);
+
 
 export default authState;
