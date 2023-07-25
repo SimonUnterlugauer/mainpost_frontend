@@ -14,6 +14,7 @@ export async function fetchEmployees() {
 }
 
 
+
 // Get only one employee
 export async function fetchEmployee(id) {
   return id;
