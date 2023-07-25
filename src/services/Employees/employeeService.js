@@ -13,9 +13,6 @@ export async function fetchEmployees() {
   }
 }
 
-export async function fetchOneEmployee(id){
-  const response = await axios.get("http://localhost:8000/employees/{{id}}");
-}
 
 // Get only one employee
 export async function fetchEmployee(id) {
