@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { fetchEmployee } from '@/services/Employees/employeeService';
 
 export default {
   data() {
@@ -42,29 +42,18 @@ export default {
     };
   },
   mounted() {
-    this.fetchEmployee();
+    this.loadData();
   },
   methods: {
-    fetchEmployee() {
-        const employeeId = this.getEmployeeIdFromUrl();
-        console.log(employeeId)
-        axios
-            .get(`http://localhost:8000/employees`)
-            .then((response) => {
-            const employees = response.data.employees;
-            this.employee = employees.find((employee) => employee.id === employeeId);
-            this.loading = false; // Daten wurden geladen
-            console.log(this.employee);
-            })
-            .catch((error) => {
-            console.error("Fehler beim Abrufen des Mitarbeiters:", error);
-            });
-    },
-    getEmployeeIdFromUrl() {
-        const url = window.location.href;
-        const parts = url.split("/");
-        const employeeId = parseInt(parts[parts.length - 1]);
-        return employeeId;
+    async loadData() {
+      const routeParams = this.$route.params;
+      try {
+        this.employee = await fetchEmployee(routeParams.id);
+        this.loading = false;
+        console.log(this.employee);
+      } catch (error) {
+        console.error('Fehler beim Laden der Daten:', error);
+      }
     },
   },
 };
