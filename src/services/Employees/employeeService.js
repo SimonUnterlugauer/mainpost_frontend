@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 
-// Get all employees -- from url = localhost
+// Fetch all employees from either db or api-call
 export async function fetchEmployees() {
   try {
     const response = await axios.get("http://localhost:8000/employees");
@@ -13,7 +13,7 @@ export async function fetchEmployees() {
   }
 }
 
-// Get only one employee
+// Fetch only one employee according to set id 
 export async function fetchEmployee(id) {
   return id;
 }

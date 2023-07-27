@@ -1,3 +1,4 @@
+// connect application to supabase-db
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = 'https://rbyxjqjwdiafatqcpdju.supabase.co'

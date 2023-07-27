@@ -46,6 +46,7 @@
         </div>
       </div>
 
+      <!-- Start Bereich mit den Cards quick stats -->
       <div class="mt-8">
         <div class="mx-auto max-w-6xl">
           <h2 class="text-lg font-medium leading-6 text-gray-900">Übersicht</h2>
@@ -146,12 +147,9 @@
                 </div>
             </div>
           </div>
-
         </div>
-
-
-       
     </div>
+    <!-- Ende Bereich Cards und Tabelle -->
 </template>
 
 
@@ -163,7 +161,7 @@
     setup() {
       const user = ref(null); // Setzen Sie user als null, wenn die Daten noch nicht geladen sind
 
-      // Daten laden, wenn die Komponente gemounted wurde
+      // Wenn die Komponente gemounted wurde suche nach username von logged in user
       onMounted(async () => {
         user.value = await userService.fetchLoggedUser();
       });

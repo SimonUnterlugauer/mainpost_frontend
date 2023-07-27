@@ -1,3 +1,4 @@
+<!-- Grundbaustein der Applikation von dort aus wird alles gerendert -->
 <template>
   <div v-if="!isAuthenticated">
     <!-- Zeige die Login-Komponente an -->
@@ -34,7 +35,7 @@
 </template>
 
 <script>
-
+// Importe neue Komponenten die überall zu sehen sind
 import Footer from "./components/layout/Footer/Footer.vue";
 import MainNavigation from "./components/layout/Navigation/MainNavigation.vue";
 import MainHeader from "./components/layout/Header/MainHeader.vue";

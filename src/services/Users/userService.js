@@ -1,6 +1,7 @@
 import supabase from '@/services/supabase';
 
 export default {
+  // Fetch all users from db or api-call
   async fetchUsers() {
     try {
       // Abfrage zum Abrufen aller Datensätze aus der "User" Tabelle
@@ -22,6 +23,7 @@ export default {
     }
   },
 
+  // Fetch currently logged in user
   async fetchLoggedUser() {
     const loggedUser = await supabase.auth.getUser();
     if (!loggedUser || !loggedUser.data || !loggedUser.data.user) {
