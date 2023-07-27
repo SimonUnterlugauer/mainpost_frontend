@@ -75,9 +75,9 @@ export async function fetchEmployee(id) {
 
 // Example fetch data from api via axios
 // Fetch all employees from either db or api-call
-// export async function fetchEmployees() {
+// export async function fetchEmployees(id, ...) {
 //   try {
-//     const response = await axios.get("http://localhost:8000/employees");
+//     const response = await axios.get("http://localhost:8000/employees/{{id}}");
 //     return response.data.employees;
 //   } catch (error) {
 //     console.error('Fehler beim Abrufen der Mitarbeiterdaten:', error);

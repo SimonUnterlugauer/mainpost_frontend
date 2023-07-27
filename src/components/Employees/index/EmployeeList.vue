@@ -47,6 +47,17 @@
           </table>
           <!-- Pagination -->
           <div class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+            <div>
+              <p class="text-sm text-gray-700">
+                Showing
+                <span class="font-medium">{{ (itemsPerPage * (currentPage -1)) + 1 }}</span>
+                to
+                <span class="font-medium">{{ currentPage * itemsPerPage }}</span>
+                of
+                <span class="font-medium">{{ totalEmployees }}</span>
+                results
+              </p>
+            </div>
             <div class="flex flex-1 justify-between gap-x-3 sm:justify-end">
               <button
                   @click="changePage(currentPage - 1)"
@@ -140,8 +151,6 @@ export default {
         );
         this.totalEmployees = await getEmployeeCount();
         this.loading = false;
-        console.log(this.showEmployees);
-        this.updatePaginatedEmployees();
       } catch (error) {
         console.error('Fehler beim Laden der Daten:', error);
       }
