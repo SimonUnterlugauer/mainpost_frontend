@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 bg-white">
-                <tr v-for="row in listData" :key="listData.id">
+                <tr v-for="row in listData" :key="row.id">
                     <td class="whitespace-nowrap px-6 py-4 text-left text-sm text-gray-500">{{row.id}} </td>
                     <td class="whitespace-nowrap px-6 py-4 text-right text-sm text-gray-500">
                         <span 

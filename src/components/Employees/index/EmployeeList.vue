@@ -1,7 +1,22 @@
 <template>
   <div>
     <div class="mx-20">
-        <h2 class="text-2xl font-bold">Mitarbeiterliste</h2>
+        <div class="grid md:grid-cols-2 space-x-2 md:space-x-4 mb-16">
+          <div class="overflow-hidden rounded-lg bg-white shadow">
+            <div class="p-5">
+                <div class="flex items-center">
+                  Statistik 1
+                </div>
+            </div>
+          </div>
+          <div class="overflow-hidden rounded-lg bg-white shadow">
+            <div class="p-5">
+                <div class="flex items-center">
+                  Statistik 2
+                </div>
+            </div>
+          </div>
+        </div>
         <div class="min-w-full overflow-hidden overflow-x-auto align-middle shadow sm:rounded-lg">
           <table class="min-w-full divide-y divide-gray-200">
               <thead class="text-right">
@@ -30,7 +45,7 @@
                         </div>
                       </td>
                       <td class="whitespace-nowrap px-6 py-4 text-right text-sm text-gray-500">
-                        <div v-if="!employee.freelance">
+                        <div v-if="employee.type == 'default'">
                           <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">ja</span>
                         </div>
                         <div v-else>
@@ -165,7 +180,7 @@ export default {
       return Math.ceil(this.totalEmployees / this.itemsPerPage);
     },
     displayedPages() {
-      const totalVisiblePages = 5; // Anzahl der sichtbaren Seitennummern in der Mitte
+      const totalVisiblePages = 3; // Anzahl der sichtbaren Seitennummern in der Mitte
       const halfVisiblePages = Math.floor(totalVisiblePages / 2);
 
       let startPage = Math.max(this.currentPage - halfVisiblePages, 1);
