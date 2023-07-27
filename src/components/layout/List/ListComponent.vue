@@ -1,5 +1,5 @@
 <template>
-    <div v-if="listData">
+    <div>
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="text-right">
                 <tr>
@@ -36,13 +36,6 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-    <div v-else>
-        <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
-            <div class="px-4 py-5 sm:px-6">
-                Dieser Mitarbeiter hatte noch keine Fehltage!
-            </div>
-        </div>
     </div>
 </template>
 

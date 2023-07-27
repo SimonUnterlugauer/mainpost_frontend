@@ -91,7 +91,12 @@
   </div>
   <div class="mt-6 min-w-full overflow-hidden overflow-x-auto align-middle shadow sm:rounded-lg">
     <div v-if="absences">
-      <ListComponent :listData="absences"/>
+      <div v-if="absences.length !== 0">
+        <ListComponent :listData="absences"/>
+      </div>
+      <div v-else>
+        <EmptyList />
+      </div>
     </div>
   </div>
 </template>
@@ -99,6 +104,7 @@
 <script>
 import { fetchEmployee } from '@/services/Employees/employeeService';
 import ListComponent from '../../layout/List/ListComponent.vue';
+import EmptyList from '../../layout/List/EmptyList.vue';
 import { getAbsencesOfEmployee } from '@/services/Absences/absencesService'
 
 export default {
@@ -110,6 +116,7 @@ export default {
   },
   components: {
     ListComponent, 
+    EmptyList,
   },
   mounted() {
     this.loadData();
