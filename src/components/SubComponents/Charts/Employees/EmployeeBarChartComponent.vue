@@ -76,6 +76,7 @@ export default {
     },
     createChartOnNextTick() {
       this.$nextTick(() => {
+        this.loaded = true;
         const ctx = this.$refs.chartCanvas.getContext('2d');
         this.updateChartData(); // Aktualisiere die Diagramm-Daten
         this.chart = new Chart(ctx, {

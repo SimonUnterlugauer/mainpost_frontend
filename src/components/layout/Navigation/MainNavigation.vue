@@ -73,28 +73,20 @@
                             class="hover:bg-indigo-700 hover:text-white block rounded-md py-2 pr-2 pl-9 text-sm leading-6"
                             @click="setActiveLink('team')"
                             >
-                                Abteilungen
+                                Mitarbeiter
                             </a>
                         </li>
                         <li>
                         <!-- 44px -->
                             <a 
-                            href="/employees" 
+                            href="/absences" 
                             class="hover:bg-indigo-700 hover:text-white block rounded-md py-2 pr-2 pl-9 text-sm leading-6"
                             @click="setActiveLink('team')"
                             >
-                                Standorte
+                                Fehltage
                             </a>
                         </li>
                         <li>
-                        <!-- 44px -->
-                        <a 
-                            href="/employees" 
-                            class="hover:bg-indigo-700 hover:text-white block rounded-md py-2 pr-2 pl-9 text-sm leading-6"
-                            @click="setActiveLink('team')"
-                            >
-                             Mitarbeiter
-                        </a>
                         </li>
                     </ul>
                 </li>

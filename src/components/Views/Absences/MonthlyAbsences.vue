@@ -62,17 +62,54 @@ export default {
       loadedChart: false,
     };
   },
-  mounted() {
+  created() {
+    if (this.chart) {
+        this.chart.destroy();
+    }
     this.loadData();
   },
 
   methods: {
+    
+    async onYearChange() {
+      if (this.chart) {
+        this.chart.destroy();
+      }
+
+      // Update the URL with the new selected year and reason
+      await this.$router.push({ query: { reason: this.reason, year: this.year } });
+
+      // Ensure that the chart is only created after the route is updated and the data is loaded
+      this.$nextTick(() => {
+        this.loadData();
+      });
+    },
+    async onReasonChange() {
+      if (this.chart) {
+        this.chart.destroy();
+      }
+
+      // Update the URL with the new selected year and reason
+      await this.$router.push({ query: { reason: this.reason, year: this.year } });
+
+      // Ensure that the chart is only created after the route is updated and the data is loaded
+      this.$nextTick(() => {
+        this.loadData();
+      });
+    },
     async loadData() {
         this.loadedChart = false;
         // Retrieve the reason and year from the route query
-        this.reason = this.$route.query.reason;
-        this.year = this.$route.query.year;
-
+        if (this.$route.query.reason) {
+            this.reason = this.$route.query.reason;
+        } else {
+            this.reason = "illness";
+        }
+        if (this.$route.query.year) {
+            this.year = this.$route.query.year;
+        } else {
+            this.year = "2020";
+        }
         // Use this.reason and this.year in your API call or any other logic
         // to load data based on the selected reason and year.
         try {
@@ -89,33 +126,12 @@ export default {
             this.createBarChart();
         });
     },
-    async onYearChange(){
-        if (this.chart) {
-            this.chart.destroy();
-        }
-        // Update the URL with the new selected year and reason
-        console.log(this.year);
-        console.log("Year is changed");
-        await this.$router.push({ query: { reason: this.reason, year: this.year } });  
-        this.loadData(); 
-    },    
-    async onReasonChange(){
-        if (this.chart) {
-            this.chart.destroy();
-        }
-        // Update the URL with the new selected year and reason
-        await this.$router.push({ query: { reason: this.reason, year: this.year } });
-        this.loadData();
-        console.log(this.reason);
-        console.log("Reason is changed");
-    }, 
-    createBarChart() {
+    async createBarChart() {
         this.loaded = false;
         const months = Object.keys(this.absences).map(Number);
         const absenceCounts = Object.values(this.absences);
         // Map the numeric months to month names
         const monthLabels = months.map(month => this.monthNames[month - 1]);
-
         const ctx = this.$refs.barChartCanvas.getContext('2d');
 
         this.chart = new Chart(ctx, {
