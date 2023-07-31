@@ -1,7 +1,7 @@
 <template>
    <div class="w-full">
     <div v-if="loaded">
-      <canvas ref="chartCanvas" />
+      <canvas ref="chartCanvas" class="cursor-pointer" />
     </div>
     <div v-else class="w-full">
       <div class="flex items-center justify-center">
@@ -55,6 +55,14 @@ export default {
             beginAtZero: true,
           },
         },
+        plugins: {
+          interaction: {
+            // Set the cursor to 'pointer' when hovering over the bars
+            onHover: (event, chartElement) => {
+              event.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+            },
+          },
+        }
       },
     };
   },

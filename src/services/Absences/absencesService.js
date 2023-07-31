@@ -78,3 +78,11 @@ export async function getMonthlyAbsencesInYear(reason, year, month) {
     return [];
   }
 }
+
+
+// To-DO get count absences of employee 
+
+// To-Do get count average absences of employee xy 
+
+
+// Goal = find out how many days in this year this employye is over average missing days (only for active employees that are default)
