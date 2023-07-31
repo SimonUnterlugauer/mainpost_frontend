@@ -24,12 +24,52 @@ export async function fetchEmployees(startNumber, endNumber) {
   }
 }
 
+// Get all employees from db filtered
+export async function fetchFilteredEmployees(startNumber, endNumber, filterOne = null, filterTwo = null) {
+  try {
+    // Starten Sie die Abfrage zum Abrufen aller Datensätze aus der "employees" Tabelle
+    let query = supabase.from('employees').select('*').range(startNumber, endNumber);
+
+    // Überprüfen Sie, ob filterOne und filterTwo definiert sind und fügen Sie sie der Abfrage hinzu
+    if (filterOne !== null) {
+      query = query.filter(filterOne.field, filterOne.operator, filterOne.value);
+    }
+    if (filterTwo !== null) {
+      query = query.filter(filterTwo.field, filterTwo.operator, filterTwo.value);
+    }
+
+    // Führen Sie die Abfrage aus
+    const { data, error } = await query;
+    // console.log(data);
+
+    if (error) {
+      console.error('Fehler beim Abrufen der Daten:', error);
+      return [];
+    }
+
+    // data enthält die abgerufenen Benutzerdaten
+    return data;
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Daten:', error);
+    return [];
+  }
+}
+
 // Only get count of total number of employees
-export async function getEmployeeCount() {
+export async function getEmployeeCount(filter = null, filter_two = null) {
+  // const filter = ( 'expiration', "is", null);
   try {
     // Abfrage zum Abrufen aller Datensätze aus der "User" Tabelle
-    const { count, error } = await supabase.from('employees').select('*', { count: 'exact' });
-    console.log(count);
+    let query = supabase.from('employees').select('*', { count: 'exact' });
+    if (filter) {
+      query = query.filter(filter.field, filter.operator, filter.value);
+    }
+    if (filter_two) {
+      query = query.filter(filter_two.field, filter_two.operator, filter_two.value);
+    }
+    const { count, error } = await query;
+    // console.log(count);
+
     
     if (error) {
       console.error('Fehler beim Abrufen der Daten:', error);
@@ -66,6 +106,9 @@ export async function fetchEmployee(id) {
     return [];
   }
 }
+
+
+
 
 
 

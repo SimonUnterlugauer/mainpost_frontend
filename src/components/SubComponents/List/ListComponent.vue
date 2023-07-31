@@ -1,5 +1,5 @@
 <template>
-    <div v-if="listData">
+    <div>
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="text-right">
                 <tr>
@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 bg-white">
-                <tr v-for="row in listData" :key="listData.id">
+                <tr v-for="row in listData" :key="row.id">
                     <td class="whitespace-nowrap px-6 py-4 text-left text-sm text-gray-500">{{row.id}} </td>
                     <td class="whitespace-nowrap px-6 py-4 text-right text-sm text-gray-500">
                         <span 
@@ -36,13 +36,6 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-    <div v-else>
-        <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
-            <div class="px-4 py-5 sm:px-6">
-                Dieser Mitarbeiter hatte noch keine Fehltage!
-            </div>
-        </div>
     </div>
 </template>
 
