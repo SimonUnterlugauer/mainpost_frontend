@@ -32,7 +32,7 @@
             <option value="illness">Krankheit</option>
             </select>
         </div>
-        </div>
+    </div>
     <div  class="w-full mt-16" v-if="loadedChart">
         <canvas ref="barChartCanvas" class="w-full h-fit"/>
     </div>
