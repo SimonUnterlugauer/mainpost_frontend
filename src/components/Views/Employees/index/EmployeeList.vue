@@ -1,11 +1,14 @@
 <template>
   <div>
-    <div class="mx-20">
+    <div class="mb-16" v-if="loaded">
+      <StatBoxesComponent :firstStat="this.totalActiveEmployees" :secondStat="this.fullTimeRatio" :thirdStat="450" />
+    </div>
+    <div class="">
         <div class="grid md:grid-cols-2 space-x-2 md:space-x-4 mb-16">
           <div class="overflow-hidden rounded-lg bg-white shadow">
             <div class="p-5">
-                <div class="flex items-center">
-                  Statistik 1
+                <div class="flex items-center w-full">
+                  <EmployeeBarChartComponent />
                 </div>
             </div>
           </div>
@@ -17,6 +20,7 @@
             </div>
           </div>
         </div>
+      <div class="mx-20">
         <div class="min-w-full overflow-hidden overflow-x-auto align-middle shadow sm:rounded-lg">
           <table class="min-w-full divide-y divide-gray-200">
               <thead class="text-right">
@@ -32,8 +36,8 @@
                     <th class="bg-gray-50 px-6 py-3 text-right text-sm font-semibold text-gray-900"></th>
                   </tr>
               </thead>
-              <tbody class="divide-y divide-gray-200 bg-white">
-                  <tr v-for="employee in showEmployees" :key="employee.id" class="bg-white">
+              <tbody v-if="loaded" class="divide-y divide-gray-200 bg-white">
+                  <tr  v-for="employee in showEmployees" :key="employee.id" class="bg-white">
                       <td class="whitespace-nowrap px-6 py-4 text-left text-sm text-gray-500">{{ employee.id }}</td>
                       <td class="whitespace-nowrap px-6 py-4 text-right text-sm text-gray-500">{{ employee.residence_city }}</td>
                       <td class="whitespace-nowrap px-6 py-4 text-right text-sm text-gray-500">
@@ -59,7 +63,39 @@
                       </td>
                   </tr>
               </tbody>
+              <tbody v-else>
+                <td>
+                  <div class="flex items-center justify-center">
+                    <div class="animate-spin rounded-full h-6 w-6 border-t-4 border-gray-500"></div>
+                  </div>
+                </td>
+                <td>
+                  <div class="flex items-center justify-end">
+                    <div class="animate-spin rounded-full h-6 w-6 border-t-4 border-gray-500"></div>
+                  </div>
+                </td>
+                <td>
+                  <div class="flex items-center justify-end">
+                    <div class="animate-spin rounded-full h-6 w-6 border-t-4 border-gray-500"></div>
+                  </div>
+                </td>
+                <td>
+                  <div class="flex items-center justify-end">
+                    <div class="animate-spin rounded-full h-6 w-6 border-t-4 border-gray-500"></div>
+                  </div>
+                </td>
+                <td>
+                  <div class="flex items-center justify-end">
+                    <div class="animate-spin rounded-full h-6 w-6 border-t-4 border-gray-500"></div>
+                  </div>
+                </td>
+              </tbody>
           </table>
+          <!-- <div v-else>
+            <div class="flex items-center justify-center">
+              <div class="animate-spin rounded-full h-6 w-6 border-t-4 border-gray-500"></div>
+            </div>
+          </div> -->
           <!-- Pagination -->
           <div class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
             <div>
@@ -132,6 +168,7 @@
             </div> 
           </div>
         </div>  
+      </div>
     </div>
   </div>
 </template>
@@ -141,6 +178,8 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { fetchEmployees, getEmployeeCount } from '@/services/Employees/employeeService';
+import StatBoxesComponent from '../../../SubComponents/Statistics/StatBoxesComponent.vue';
+import EmployeeBarChartComponent from '../../../SubComponents/Charts/Employees/EmployeeBarChartComponent'
 library.add(faChevronLeft, faChevronRight);
 
 
@@ -151,7 +190,10 @@ export default {
       totalEmployees: 0, // Hier werden die paginierten Mitarbeiterdaten gespeichert
       currentPage: 1,
       itemsPerPage: 100,
-      loading: true,
+      loaded: false,
+      totalActiveEmployees: 0,
+      totalActiveFullTimeEmployees: 0,
+      fullTimeRatio: 0,
     };
   },
   mounted() {
@@ -165,7 +207,14 @@ export default {
           this.currentPage * this.itemsPerPage - 1
         );
         this.totalEmployees = await getEmployeeCount();
-        this.loading = false;
+        // Get total active employees
+        this.totalActiveEmployees = await getEmployeeCount({ field: 'expiration', operator: 'is', value: null });
+        
+        // Get ratio of full time employees
+        this.totalActiveFullTimeEmployees = await getEmployeeCount({ field: 'expiration', operator: 'is', value: null }, { field: 'type', operator: 'eq', value: 'default' });
+        this.fullTimeRatio = 100 * (this.totalActiveFullTimeEmployees/this.totalActiveEmployees).toFixed(4);
+        console.log(this.fullTimeRatio);
+        this.loaded = true;
       } catch (error) {
         console.error('Fehler beim Laden der Daten:', error);
       }
@@ -211,6 +260,8 @@ export default {
   },
   components: {
     FontAwesomeIcon,
+    StatBoxesComponent,
+    EmployeeBarChartComponent,
   },
 };
 </script>

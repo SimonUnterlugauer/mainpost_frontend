@@ -1,9 +1,9 @@
 // router.js -> zentrale routing file
 import { createRouter, createWebHistory } from "vue-router";
-import EmployeeList from "./components/Employees/index/EmployeeList.vue";
-import EmployeeDetail from "./components/Employees/show/EmployeeDetail.vue";
+import EmployeeList from "./components/Views/Employees/index/EmployeeList.vue";
+import EmployeeDetail from "./components/Views/Employees/show/EmployeeDetail.vue";
 import LoginComponent from "./components/Authentification/Login/LoginComponent.vue";
-import DashboardComponent from "./components/Dashboard/DashboardComponent.vue";
+import DashboardComponent from "./components/Views/Dashboard/DashboardComponent.vue";
 
 const routes = [
   { path: "/employees", component: EmployeeList },

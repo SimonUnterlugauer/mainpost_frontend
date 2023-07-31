@@ -25,11 +25,20 @@ export async function fetchEmployees(startNumber, endNumber) {
 }
 
 // Only get count of total number of employees
-export async function getEmployeeCount() {
+export async function getEmployeeCount(filter = null, filter_two = null) {
+  // const filter = ( 'expiration', "is", null);
   try {
     // Abfrage zum Abrufen aller Datensätze aus der "User" Tabelle
-    const { count, error } = await supabase.from('employees').select('*', { count: 'exact' });
-    console.log(count);
+    let query = supabase.from('employees').select('*', { count: 'exact' });
+    if (filter) {
+      query = query.filter(filter.field, filter.operator, filter.value);
+    }
+    if (filter_two) {
+      query = query.filter(filter_two.field, filter_two.operator, filter_two.value);
+    }
+    const { count, error } = await query;
+    // console.log(count);
+
     
     if (error) {
       console.error('Fehler beim Abrufen der Daten:', error);
@@ -66,6 +75,9 @@ export async function fetchEmployee(id) {
     return [];
   }
 }
+
+
+
 
 
 

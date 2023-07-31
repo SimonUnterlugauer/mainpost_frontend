@@ -34,9 +34,9 @@
 
 <script>
 // Importe neue Komponenten die überall zu sehen sind
-import Footer from "./components/layout/Footer/Footer.vue";
-import MainNavigation from "./components/layout/Navigation/MainNavigation.vue";
-import MainHeader from "./components/layout/Header/MainHeader.vue";
+import Footer from "./components/Layout/Footer/Footer.vue";
+import MainNavigation from "./components/Layout/Navigation/MainNavigation.vue";
+import MainHeader from "./components/Layout/Header/MainHeader.vue";
 import LoginComponent from "./components/Authentification/Login/LoginComponent.vue";
 import supabase from '@/services/supabase';  // Passe den Pfad entsprechend an
 

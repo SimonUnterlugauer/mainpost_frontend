@@ -103,8 +103,8 @@
 
 <script>
 import { fetchEmployee } from '@/services/Employees/employeeService';
-import ListComponent from '../../layout/List/ListComponent.vue';
-import EmptyList from '../../layout/List/EmptyList.vue';
+import ListComponent from '../../../SubComponents/List/ListComponent.vue';
+import EmptyList from '../../../SubComponents/List/EmptyList.vue';
 import { getAbsencesOfEmployee } from '@/services/Absences/absencesService'
 
 export default {

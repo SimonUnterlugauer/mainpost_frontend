@@ -154,7 +154,7 @@
 
 
 <script>
-  import userService from '../../services/Users/userService';
+  import userService from '@/services/Users/userService';
   import { ref, onMounted } from 'vue';
  
   export default {

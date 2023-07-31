@@ -22,3 +22,25 @@ export async function getAbsencesOfEmployee(employeeId) {
     return [];
   }
 }
+
+export async function getTotalAbsencesInYear(reason, year) {
+  try {
+    // Abfrage zum Abrufen aller Datensätze aus der "User" Tabelle
+    const { count, error } = await supabase
+      .from('absences')
+      .select('*', { count: 'exact' })
+      .eq('reason', reason)
+      .gte('start_date', `${Number(year)}-01-01`) // Größer oder gleich dem ersten Tag des Jahres
+      .lt('start_date', `${Number(year) + 1}-01-01`)
+    
+    if (error) {
+      console.error('Fehler beim Abrufen der Daten:', error);
+      return [];
+    }
+    // data enthält die abgerufenen Benutzerdaten
+    return count;
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Daten:', error);
+    return [];
+  }
+}
