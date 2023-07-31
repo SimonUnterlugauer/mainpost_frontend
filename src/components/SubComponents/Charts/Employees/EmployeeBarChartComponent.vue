@@ -135,7 +135,7 @@ export default {
         } else if (dataIndex === 3 && datasetIndex === 1) {
           selectedData = { reason: 'illness', year: '2023' };
         }
-
+        this.loaded = false;
         // Route to the new component with the selectedData as query parameters
         this.$router.push({ name: 'MonthlyAbsences', query: selectedData });
       }
