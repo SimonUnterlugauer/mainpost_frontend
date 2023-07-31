@@ -81,7 +81,10 @@ export default {
         this.chart = new Chart(ctx, {
           type: 'bar',
           data: this.data,
-          options: this.options,
+          options: {
+            ...this.options,
+            onClick: this.handleChartClick,
+          } 
         });
       });
     },
@@ -107,6 +110,36 @@ export default {
         ],
       };
     },
+    handleChartClick(event, activeElements) {
+      if (activeElements && activeElements.length > 0) {
+        const activeElement = activeElements[0];
+        const datasetIndex = activeElement.datasetIndex;
+        const dataIndex = activeElement.index;
+
+        let selectedData = {};
+        if (dataIndex === 0 && datasetIndex === 0) {
+          selectedData = { reason: 'vacation', year: '2020' };
+        } else if (dataIndex === 0 && datasetIndex === 1) {
+          selectedData = { reason: 'illness', year: '2020' };
+        } else if (dataIndex === 1 && datasetIndex === 0) {
+          selectedData = { reason: 'vacation', year: '2021' };
+        } else if (dataIndex === 1 && datasetIndex === 1) {
+          selectedData = { reason: 'illness', year: '2021' };
+        } else if (dataIndex === 2 && datasetIndex === 0) {
+          selectedData = { reason: 'vacation', year: '2022' };
+        } else if (dataIndex === 2 && datasetIndex === 1) {
+          selectedData = { reason: 'illness', year: '2022' };
+        } else if (dataIndex === 3 && datasetIndex === 0) {
+          selectedData = { reason: 'vacation', year: '2023' };
+        } else if (dataIndex === 3 && datasetIndex === 1) {
+          selectedData = { reason: 'illness', year: '2023' };
+        }
+
+        // Route to the new component with the selectedData as query parameters
+        this.$router.push({ name: 'MonthlyAbsences', query: selectedData });
+      }
+    },
+
   },
   beforeUnmount() {
     // Destruktion des Diagramms, wenn die Komponente entfernt wird

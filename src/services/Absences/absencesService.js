@@ -44,3 +44,35 @@ export async function getTotalAbsencesInYear(reason, year) {
     return [];
   }
 }
+
+
+// get absences in month xxx
+export async function getMonthlyAbsencesInYear(reason, year, month) {
+  let endDateCondition;
+  if (Number(month) === 12) {
+    // If the month is 12, set the endDateCondition to December 31 of the next year
+    const nextYear = Number(year) + 1;
+    endDateCondition = `${nextYear}-01-01`;
+  } else {
+    // For other months, set the endDateCondition to the start of the next month
+    endDateCondition = `${year}-${Number(month) + 1}-01`;
+  }
+  try {
+    const { count, error } = await supabase
+      .from('absences')
+      .select('*', { count: 'exact' })
+      .eq('reason', reason)
+      .gte('start_date', `${Number(year)}-${Number(month)}-01`) 
+      .lt('start_date', endDateCondition)
+    
+    if (error) {
+      console.error('Fehler beim Abrufen der Daten:', error);
+      return [];
+    }
+    // data enthält die abgerufenen Benutzerdaten
+    return count;
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Daten:', error);
+    return [];
+  }
+}
