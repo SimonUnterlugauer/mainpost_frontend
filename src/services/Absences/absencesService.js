@@ -3,12 +3,13 @@ import supabase from "@/services/supabase"
 
 // Get all employees from supabase db
 export async function getAbsencesOfEmployee(employeeId) {
+  console.log(Number(employeeId));
   try {
     // Abfrage zum Abrufen aller Datensätze aus der "User" Tabelle
     const { data, error } = await supabase
       .from('absences')
       .select('*')
-      .eq('employee_id', employeeId)
+      .eq('employee_id', Number(employeeId))
     console.log(data);
     
     if (error) {
@@ -22,6 +23,7 @@ export async function getAbsencesOfEmployee(employeeId) {
     return [];
   }
 }
+
 
 export async function getTotalAbsencesInYear(reason, year) {
   try {

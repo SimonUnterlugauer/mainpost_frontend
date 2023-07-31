@@ -9,7 +9,7 @@
     </div>
     <div class="flex items-center">
       <h4 class="text-4xl font-bold text-blue-500">Mitarbeiter {{ employee[0].id }}</h4>
-      <div v-if="employee[0].expiration" class="ml-6">
+      <div v-if="!employee[0].expiration" class="ml-6">
         <span class="inline-flex text-md items-center rounded-md bg-green-50 px-2 py-1 font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Aktiv</span>
       </div>
       <div v-else class="ml-6">
@@ -105,7 +105,7 @@
 import { fetchEmployee } from '@/services/Employees/employeeService';
 import ListComponent from '../../../SubComponents/List/ListComponent.vue';
 import EmptyList from '../../../SubComponents/List/EmptyList.vue';
-import { getAbsencesOfEmployee } from '@/services/Absences/absencesService'
+import { getAbsencesOfEmployee } from '@/services/Absences/absencesService';
 
 export default {
   data() {
