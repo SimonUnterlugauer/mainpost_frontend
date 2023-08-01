@@ -134,15 +134,31 @@ export default {
         const monthLabels = months.map(month => this.monthNames[month - 1]);
         const ctx = this.$refs.barChartCanvas.getContext('2d');
 
+        let headlineText;
+        if (this.reason == "vacation") {
+            headlineText = "Urlaubstage";
+        } else {
+            headlineText = "Krankheitstage";
+        }
+
+        let colorGradient;
+        let colorBorder;
+        if (this.reason == "vacation") {
+            colorGradient = 'rgba(75, 192, 192, 0.6)';
+            colorBorder = 'rgba(75, 192, 192, 1)';
+        } else {
+            colorGradient = 'rgba(255, 99, 132, 0.6)';
+            colorBorder = 'rgba(255, 99, 132, 1)';
+        }
         this.chart = new Chart(ctx, {
             type: 'bar',
             data: {
             labels: monthLabels,
             datasets: [
                 {
-                label: this.reason+ " " + this.year,
-                backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                borderColor: 'rgba(75, 192, 192, 1)',
+                label: headlineText+ " " + this.year,
+                backgroundColor: colorGradient,
+                borderColor: colorBorder,
                 borderWidth: 1,
                 data: absenceCounts,
                 },
