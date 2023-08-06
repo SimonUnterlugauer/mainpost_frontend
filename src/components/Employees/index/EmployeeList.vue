@@ -50,9 +50,10 @@
             <div>
               <p class="text-sm text-gray-700">
                 Showing
-                <span class="font-medium">{{ (itemsPerPage * (currentPage -1)) + 1 }}</span>
+                <!--  Showing 12901 to 12938 of 12938 results -->
+                <span class="font-medium">{{ (currentPage - 1) * itemsPerPage + 1 }}</span>
                 to
-                <span class="font-medium">{{ currentPage * itemsPerPage }}</span>
+                <span class="font-medium">{{ Math.min(currentPage * itemsPerPage, totalEmployees) }}</span>
                 of
                 <span class="font-medium">{{ totalEmployees }}</span>
                 results
@@ -165,7 +166,7 @@ export default {
       return Math.ceil(this.totalEmployees / this.itemsPerPage);
     },
     displayedPages() {
-      const totalVisiblePages = 5; // Anzahl der sichtbaren Seitennummern in der Mitte
+      const totalVisiblePages = 3; // Anzahl der sichtbaren Seitennummern in der Mitte
       const halfVisiblePages = Math.floor(totalVisiblePages / 2);
 
       let startPage = Math.max(this.currentPage - halfVisiblePages, 1);
